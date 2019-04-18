@@ -203,7 +203,9 @@ public class BaseUploadStatus implements IUploadStatus {
   public void setError(String msg) {
     setStatus(Status.ERROR);
 //    Window.alert(msg.replaceAll("\\\\n", "\\n"));
-    showAlert(msg.replaceAll("\\\\n", "\\n"));
+    if (msg != null && !"".equals(msg)) {
+        showAlert(msg.replaceAll("\\\\n", "\\n"));
+    }
   }
 
   /**

@@ -270,8 +270,10 @@ public class Uploader extends Composite implements IsUpdateable, IUploader, HasJ
   private long lastData = now();
   private final RequestCallback onBlobstoreReceivedCallback = new RequestCallback() {
     public void onError(Request request, Throwable exception) {
-      String message = removeHtmlTags(exception.getMessage());
-      cancelUpload(i18nStrs.uploaderServerUnavailable() + " (1) " + getServletPath() + "\n\n" + message);
+//      String message = removeHtmlTags(exception.getMessage());
+//      cancelUpload(i18nStrs.uploaderServerUnavailable() + " (1) " + getServletPath() + "\n\n" + message);
+      // baiguanghong 2019年4月18日11:00:38 置空信息，不再提示
+      cancelUpload("");
     }
     public void onResponseReceived(Request request, Response response) {
       String text = response.getText();
@@ -376,8 +378,10 @@ public class Uploader extends Composite implements IsUpdateable, IUploader, HasJ
 
   private final RequestCallback onSessionReceivedCallback = new RequestCallback() {
     public void onError(Request request, Throwable exception) {
-      String message = removeHtmlTags(exception.getMessage());
-      cancelUpload(i18nStrs.uploaderServerUnavailable() + " (2) " + getServletPath() + "\n\n" + message);
+//      String message = removeHtmlTags(exception.getMessage());
+//      cancelUpload(i18nStrs.uploaderServerUnavailable() + " (2) " + getServletPath() + "\n\n" + message);
+      // baiguanghong 2019年4月18日11:00:38 置空信息，不再提示
+        cancelUpload("");
     }
     public void onResponseReceived(Request request, Response response) {
       try {
@@ -390,9 +394,11 @@ public class Uploader extends Composite implements IsUpdateable, IUploader, HasJ
         uploadForm.setAction(session.getServletPath());
         uploadForm.submit();
       } catch (Exception e) {
-        String message = e.getMessage().contains("error:")
-            ? i18nStrs.uploaderServerUnavailable() + " (3) " + getServletPath() + "\n\n" + i18nStrs.uploaderServerError() + "\nAction: " + getServletPath() + "\nException: " + e.getMessage() + response.getText()
-            : i18nStrs.submitError();
+//        String message = e.getMessage().contains("error:")
+//            ? i18nStrs.uploaderServerUnavailable() + " (3) " + getServletPath() + "\n\n" + i18nStrs.uploaderServerError() + "\nAction: " + getServletPath() + "\nException: " + e.getMessage() + response.getText()
+//            : i18nStrs.submitError();
+       // baiguanghong 2019年4月18日11:00:38 置空信息，不再提示
+        String message = e.getMessage().contains("error:") ? "" : i18nStrs.submitError();
         cancelUpload( message);
       }
     }
@@ -416,10 +422,12 @@ public class Uploader extends Composite implements IsUpdateable, IUploader, HasJ
       } else {
         log("GWTUpload: onStatusReceivedCallback error: " + exception.getMessage(), exception);
         updateStatusTimer.cancel();
-        String message = removeHtmlTags(exception.getMessage());
-        message += "\n" + exception.getClass().getName();
-        message += "\n" + exception.toString();
-        statusWidget.setError(i18nStrs.uploaderServerUnavailable() + " (4) " + getServletPath() + "\n\n" + message);
+//        String message = removeHtmlTags(exception.getMessage());
+//        message += "\n" + exception.getClass().getName();
+//        message += "\n" + exception.toString();
+//        statusWidget.setError(i18nStrs.uploaderServerUnavailable() + " (4) " + getServletPath() + "\n\n" + message);
+     // baiguanghong 2019年4月18日11:00:38 置空信息，不再提示
+        statusWidget.setError("");
       }
     }
 
